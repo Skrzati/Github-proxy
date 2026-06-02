@@ -1,6 +1,5 @@
 package pl.mateuszj.rekrutacja;
 
-
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/repositories")
-public class GithubController {
+class GithubController {
 
     private final GithubService githubService;
 
@@ -20,7 +19,7 @@ public class GithubController {
     }
 
     @GetMapping(value = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<RepositoryResponse>> getUserRepositories(@PathVariable String username) {
+    ResponseEntity<List<RepositoryResponse>> getUserRepositories(@PathVariable String username) {
         List<RepositoryResponse> repositories = githubService.getUserRepositories(username);
         return ResponseEntity.ok(repositories);
     }

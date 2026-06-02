@@ -1,16 +1,17 @@
+
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '4.0.6'
-    id 'io.spring.dependency-management' version '1.1.7'
+    java
+    id("org.springframework.boot") version "4.0.6"
+    id("io.spring.dependency-management") version "1.1.7"
 }
 
-group = 'pl.MateuszJ'
-version = '0.0.1-SNAPSHOT'
-description = 'rekrutacja'
+group = "pl.mateuszj"
+version = "0.0.1-SNAPSHOT"
+description = "rekrutacja"
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
+        languageVersion.set(JavaLanguageVersion.of(25))
     }
 }
 
@@ -25,6 +26,6 @@ dependencies {
     testImplementation("org.wiremock.integrations:wiremock-spring-boot:4.2.1")
 }
 
-tasks.named('test') {
+tasks.named<Test>("test") {
     useJUnitPlatform()
 }

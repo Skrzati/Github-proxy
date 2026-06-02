@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import java.util.List;
 
@@ -22,20 +21,15 @@ class GithubClient {
     }
 
     List<GithubRepoDto> getUserRepositories(String username) {
-        try {
-            return restClient.get()
-                    .uri("/users/{username}/repos", username)
-                    .retrieve()
-                    .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
-                        if (response.getStatusCode().value() == 404) {
-                            throw new UserNotFoundException("User not found on GitHub: " + username);
-                        }
-                        throw new HttpClientErrorException(response.getStatusCode(), response.getStatusText());
-                    })
-                    .body(new ParameterizedTypeReference<List<GithubRepoDto>>() {});
-        } catch (HttpClientErrorException.NotFound e) {
-            throw new UserNotFoundException("User not found on GitHub: " + username);
-        }
+        return restClient.get()
+                .uri("/users/{username}/repos", username)
+                .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
+                    if (response.getStatusCode().value() == 404) {
+                        throw new UserNotFoundException("User not found on GitHub: " + username);
+                    }
+                })
+                .body(new ParameterizedTypeReference<List<GithubRepoDto>>() {});
     }
 
     List<GithubBranchDto> getRepositoryBranches(String owner, String repo) {
