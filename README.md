@@ -70,11 +70,3 @@ curl -s -H "Accept: application/json" http://localhost:8080/api/repositories/tes
 
 - `GithubClient` używa `RestClient.Builder` (bean zdefiniowany w `RestClientConfig`)
 - `GithubService` filtruje forki i mapuje dane do DTO używanych przez API
-
-## Licencja
-
-Dodaj plik LICENSE z wybraną licencją (np. MIT) jeżeli chcesz udostępnić projekt publicznie.
-
----
-
-Jeśli chcesz, mogę dodać jeszcze sekcję z przykładowymi testami lub przygotować plik LICENSE i zrobić commit.
